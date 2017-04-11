@@ -23,12 +23,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lizzieshipton/mApper.git"
+    "url": "git+https://github.com/trannda1223/mApper-1.git"
   },
   "author": "the usual subsets",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lizzieshipton/mApper/issues"
-  },
   "homepage": "https://github.com/TheUsualSubsets/mApper#readme"
 }

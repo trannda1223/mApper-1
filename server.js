@@ -40,8 +40,8 @@ app.post("/api/addPoint", function(req, res) {
     //extract the unique ID and create a url using the ID as a querystring
     var ID = newEntry._id;
 
-    var testIP = 'http://localhost:9001/';
-    // var IP = 'http://www.parachute9001.com/'
+    // var testIP = 'http://localhost:9001/';
+    var IP = 'http://www.parachute9009.com/'
 
     res.send( testIP + '#/game?q=' + ID);
     // res.send(IP + '#/game?q=' + ID);
