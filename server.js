@@ -1,21 +1,20 @@
-  var express = require('express');
-var request = require('request');
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var query = require('./server/dbqueries.js');
+var express = require("express");
+var request = require("request");
+var mongo = require("mongodb");
+var mongoose = require("mongoose");
+var bodyParser = require("body-parser");
+var query = require("./db/dbqueries.js");
 
 var app = express();
 app.use(bodyParser.json());
 var PORT = process.env.PORT || 9001;
 
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(__dirname + "/client"));
 
 
 //------------------------------MAIN ROUTES--------------------------//
 
-app.get('/newGame', function(req, res){
-  console.log('starting');
+app.get("/newGame", function(req, res){
   //check if there was a querystring (from a shared link) attached to the req
   if(req.query.q){
     //if there was, query DB based on that querystring
@@ -24,14 +23,14 @@ app.get('/newGame', function(req, res){
     })
     //if not, return a random location
   } else {
-      query.randomQuery(function(result) {
-        res.send(result);
-      });
+    query.randomQuery(function(result) {
+      res.send(result);
+    });
   }
 });
 
 
-app.post('/api/addPoint', function(req, res) {
+app.post("/api/addPoint", function(req, res) {
   //add the new point to the database
   query.addToDatabase(req.body, function(err, newEntry){
     if(err){
@@ -40,16 +39,14 @@ app.post('/api/addPoint', function(req, res) {
     //the above query returns the newly-added point
     //extract the unique ID and create a url using the ID as a querystring
     var ID = newEntry._id;
-    // var testIP = 'http://localhost:9001/';
-    var IP = 'http://www.parachute9001.com/'
 
-    // console.log(IP + 'newGame?q=' + ID)
-    res.send(IP + '#/game?q=' + ID);
-    // res.send(IP + 'newGame?q=' + ID);
+    var testIP = 'http://localhost:9001/';
+    // var IP = 'http://www.parachute9001.com/'
+
+    res.send( testIP + '#/game?q=' + ID);
+    // res.send(IP + '#/game?q=' + ID);
   });
 })
-
-
 
 
 //---------------------------DB MAINTANANCE--------------------------//
@@ -58,42 +55,38 @@ app.post('/api/addPoint', function(req, res) {
 
 
 //for easily obtaining all entries in the DB via Postman
-app.get('/api/getAll', function(req, res) {
+app.get("/api/getAll", function(req, res) {
   query.getAllQuery(req.query.city, function(results) {
     res.send(results);
   })
 })
 
 //for updating incorrect DB entries
-app.post('/api/update', function(req, res) {
+app.post("/api/update", function(req, res) {
   query.updateEntry(req.body.lookup, req.body.update, function(results) {
     res.send(results);
   })
 })
 
 //sends back a list of unique cities in the database ;)
-app.get('/api/distinct', function(req, res) {
+app.get("/api/distinct", function(req, res) {
   query.distinctQuery(function(results) {
     res.send(results);
   })
 })
 
-
-app.get('/scores', function(req, res) {
+app.get("/scores", function(req, res) {
     query.getScores(function(results) {
       res.send(200, results);
   })
-
 })
 
-app.post('/scores', function(req, res) {
-
+app.post("/scores", function(req, res) {
   query.addScores(req.body, function(results) {
     res.send(200);
   });
-
 })
 
 app.listen(PORT, function(){
-  console.log('listening on PORT ' + PORT);
+  console.log("listening on PORT: " + PORT);
 })

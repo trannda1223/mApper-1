@@ -27,7 +27,7 @@ angular.module('challenge', [])
 
 
   $scope.updateInfo = function() {
-    //reset validatio alert values
+    //reset validation alert values
     $scope.showCityAlert = false;
     $scope.showPOIAlert = false;
     //create an object that we will send to server to input into the database
@@ -45,23 +45,23 @@ angular.module('challenge', [])
     //maybe option in the future would be to have a database of city names
     //that the user must select the city from in order to validate the data?
     GeoCoder.geocode({location: {lat: $scope.locationObj.lat, lng: $scope.locationObj.lng}}).then(function(result) {
-        var components = result[0].address_components;
-        for(var i = 0; i < components.length; i++) {
-          if ((components[i].types[0] === "locality" ||
-            components[i].types[0] === 'administrative_area_level_1') && !$scope.locationObj.city) {
-            $scope.locationObj.city = components[i].long_name;
-          }
-          if (components[i].types[0] === "country") {
-            if(components[i].short_name === 'US') {
-              $scope.locationObj.country = 'USA';
-            } else {
-              $scope.locationObj.country = components[i].long_name;
-            }
+      var components = result[0].address_components;
+      for(var i = 0; i < components.length; i++) {
+        if ((components[i].types[0] === "locality" ||
+          components[i].types[0] === 'administrative_area_level_1') && !$scope.locationObj.city) {
+          $scope.locationObj.city = components[i].long_name;
+        }
+        if (components[i].types[0] === "country") {
+          if(components[i].short_name === 'US') {
+            $scope.locationObj.country = 'USA';
+          } else {
+            $scope.locationObj.country = components[i].long_name;
           }
         }
-        if(!$scope.locationObj.country) {
-          $scope.locationObj.country = 'Earth';
-        }
+      }
+      if(!$scope.locationObj.country) {
+        $scope.locationObj.country = 'Earth';
+      }
     })
   };
 
@@ -86,21 +86,18 @@ angular.module('challenge', [])
       $scope.appear = !$scope.appear;
     });
   };
-
   $scope.validateInput = function() {
     if(!$scope.locationObj.city || $scope.locationObj.city === '') {
       $scope.showCityAlert = true;
     }
-
     if(!$scope.locationObj.poi || $scope.locationObj.poi === '') {
       $scope.showPOIAlert = true;
     }
-
     if($scope.locationObj.city !== '' && $scope.locationObj.poi !== '' && $scope.locationObj.city && $scope.locationObj.poi) {
-      console.log($scope.locationObj, 'location obj')
       $scope.addToDatabase();
     }
   }
+
 
   //use map search box value to update current location of the map
   $scope.updateToPlace = function(place) {
@@ -118,8 +115,6 @@ angular.module('challenge', [])
   $scope.silver = [{"elementType":"geometry","stylers":[{"color":"#f5f5f5"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#f5f5f5"}]},{"featureType":"administrative.land_parcel","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#eeeeee"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#e5e5e5"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"road","elementType":"geometry","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#dadada"}]},{"featureType":"road.highway","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"color":"#e5e5e5"}]},{"featureType":"transit.station","elementType":"geometry","stylers":[{"color":"#eeeeee"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#c9c9c9"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]}];
 
   $scope.custom = [{"elementType":" geometry","stylers":[{"color":"#242f3e"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#746855"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#242f3e"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#d59563"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#d59563"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#263c3f"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#6b9a76"}]},{"featureType":"road","elementType":"geometry","stylers":[{"color":"#38414e"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#212a37"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#9ca5b3"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#746855"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#1f2835"}]},{"featureType":"road.highway","elementType":"labels.text.fill","stylers":[{"color":"#f3d19c"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#2f3948"}]},{"featureType":"transit.station","elementType":"labels.text.fill","stylers":[{"color":"#d59563"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#17263c"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#515c6d"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"color":"#17263c"}]}];
-
-
 }])
 
 //use addnewpoint factory for communication with server

@@ -5,11 +5,10 @@ azure.err
 iisnode.yml
 config.js
 ecosystem.json
-server/copyRemoteDB.js
+db/copyRemoteDB.js
 
 # Icon must ends with two \r.
 Icon
-
 
 # Thumbnails
 ._*
@@ -19,8 +18,6 @@ Icon
 .Trashes
 node_modules/
 client/bower_components
-
-
 
 # Floobits
 .floo

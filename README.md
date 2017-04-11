@@ -1,5 +1,6 @@
-# **PARACHUTE**
+# **PARACHUTE (aka mApper)**
 A geo-location guessing game for friends!
+
 
 [www.parachute9001.com](www.parachute9001.com)
 
@@ -12,7 +13,7 @@ ___
 
 **scrum master:** Lizzie Shipton
 
-**team members:** Jeff Judkins, Masashi Swingle, David Trann, Sean Enright, Lizzie Shipton
+**team members:** Jeff Judkins, David Tran, Sean Enright, Masashi Swingle, Lizzie Shipton
 
 
 ## TABLE OF CONTENTS
@@ -21,7 +22,6 @@ ___
 2. [Development](# develop-/-contribute)
   * [Usage](# usage)
   * [Tasks](# tasks)
-
 
 
 
@@ -56,15 +56,18 @@ cd ..
 npm start
 ```
 
+http://localhost:9001/
+
+
 ### Tasks
 
   To seed the database, run the seed_database.js file one time from your command-line.  You must have an instance of mongod running in the background.
 
   ```
-  cd server
+  cd db
   node seed_database.js
   cd ..
-  ```
+  ``
 
   This will populate your database with 50 initial locations selected from London, Chicago, New York, San Francisco and Istanbul.
 

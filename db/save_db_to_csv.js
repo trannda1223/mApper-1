@@ -1,8 +1,8 @@
-var City = require('./databaseinitialization').data;
-var fs = require('fs');
+var City = require("./databaseinitialization").data;
+var fs = require("fs");
 
-var wstream = fs.createWriteStream('saved_db_copy.csv');
-wstream.write('id, city_name, lat, lng, poi, heading, pitch, state, country \r\n');
+var wstream = fs.createWriteStream("saved_db_copy.csv");
+wstream.write("id, city_name, lat, lng, poi, heading, pitch, state, country \r\n");
 
 City.find().then(function(results) {
   for (var i = 0; i < results.length; i++) {
