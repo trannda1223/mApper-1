@@ -6,10 +6,16 @@ require('dotenv').config();
 //In order for the following connection to work, I had to set the bind_ip variable
 //inside the etc/mongo.config file (on the remote server) to 0.0.0.0.
 //This allows the database to accept connections from networks outside of the local machine.
+
+
+var uri = 'mongodb://localhost/mapper';
+
 if(process.env.DBUSERNAME && process.env.DBPASSWORD) {
+  uri = 'ds159180.mlab.com:59180/mapperlocations';
   var options = {user: process.env.DBUSERNAME, pass: process.env.DBPASSWORD};
 }
-mongoose.connect('mongodb://localhost/mapper', options || null , function(err, db) {
+// ds159180.mlab.com:59180/mapperlocations
+mongoose.connect(uri, options || null , function(err, db) {
   if (err) {
     throw err;
   } else {
