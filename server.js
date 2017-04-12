@@ -4,6 +4,7 @@ var mongo = require("mongodb");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var query = require("./db/dbqueries.js");
+require('dotenv').config();
 
 var app = express();
 app.use(bodyParser.json());

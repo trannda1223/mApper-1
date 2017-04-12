@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var fs = require('fs');
+require('dotenv').config();
 
 
 //In order for the following connection to work, I had to set the bind_ip variable
